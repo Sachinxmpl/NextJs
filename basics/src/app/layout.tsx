@@ -1,4 +1,5 @@
 import { ReactNode } from "react"
+import Link from "next/link"
 
 export const metadata = {
   title: 'Next.js',
@@ -8,7 +9,24 @@ export const metadata = {
 export default function RootLayout({children}:{children: ReactNode}) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <nav>
+          <Link href={"/about"}>
+              <button>About</button>
+          </Link>
+          <Link href={"/profile"}>
+              <button>Profile</button>
+          </Link>
+          <Link href={"/"}>
+                <button>Home</button>
+          </Link>
+          <Link href={"/product"}>
+                <button>Product</button>
+          </Link>
+        </nav>
+        {children}
+        <p> This is a footer component</p>
+        </body>
     </html>
   )
 }
