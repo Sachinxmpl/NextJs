@@ -20,12 +20,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <Link href={"/"}>
             <button>Home</button>
           </Link>
-          <Link href={"/product"}>
-            <button>Product</button>
-          </Link>
           <Link href={"/error"}>
             <button>Error</button>
           </Link>
+
+          <Link href={"/product"}>
+              <button>Product</button>
+          </Link>
+
         </nav>
         {children}
         <p> This is a footer component</p>

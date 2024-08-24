@@ -1,10 +1,15 @@
-export default function ProductList(){
-    return (
-        <>
-                <h1> Product List </h1>
-                <h2> PRoduct 1 </h2>
-                <h2> Product 2 </h2>
-                <h3> Product 4 </h3>
-        </>
-    )
+export default function product() {
+  return (
+    <div>
+      <h1> Product details </h1>
+      <ul>
+        <p> Goto to "product/:productid" to see the particular product</p>
+        <p> Goto to "product/:productid/reviews" to get all reviews</p>
+        <p>  
+            Goto to "product/:productid/reviews/reviewid" to get a particular
+            review
+        </p>
+      </ul>
+    </div>
+  );
 }
