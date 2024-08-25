@@ -1,9 +1,8 @@
-// import Singup from "../../components/signup"
+import SignUp from "../../components/signup"
 
 
 export default function main(){
     return (
-        // <Singup/>
-        <div> hih </div>
+        <SignUp/>
     )
 }

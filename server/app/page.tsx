@@ -10,7 +10,6 @@ async function getDetails() {
 
 export default async function Home() {
   const userDetails = await getDetails();
-  
   return (
     <div className="flex flex-col justify-center h-screen">
         <div className="flex justify-center">
