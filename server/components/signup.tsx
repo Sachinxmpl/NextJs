@@ -1,12 +1,13 @@
 "use client"
 
-
 import axios from "axios"
 import {useState} from "react"
+import { useRouter } from "next/navigation"
 
 
 export default function SignUp(){
 
+    const router = useRouter()
     const [username , setUsername] = useState<string>("")
     const [password , setPassword] = useState<string>("")
 
@@ -17,6 +18,9 @@ export default function SignUp(){
             password 
         })
         console.log(response)
+        setUsername("")
+        setPassword("")
+        router.push("/")
     }
 
     return(
