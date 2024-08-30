@@ -1,9 +1,13 @@
-
 import axios from "axios";
+import { PrismaClient } from "@prisma/client";
+
+const client = new PrismaClient();
 
 async function getDetails() {
-  const response = await axios.post("http://localhost:3000/api/user");
-  return response.data;
+    const user = await client.user.findFirst({
+      where : { email : "sachin"}
+    })
+    return user
 }
 
 //aysnchronous components in serside components only 
@@ -15,7 +19,7 @@ export default async function Home() {
         <div className="flex justify-center">
             <div className="border p-8 rounded">
                 <div>
-                    Name: {userDetails?.name}
+                    Name: {userDetails?.password}
                 </div>
                 
                 {userDetails?.email}
