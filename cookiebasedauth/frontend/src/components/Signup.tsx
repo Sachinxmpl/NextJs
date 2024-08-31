@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { BACKEND_URL } from "../config"
+import { BACKEND_URL } from "../config.js"
 import axios from "axios"
 
 export const Signup = () => {

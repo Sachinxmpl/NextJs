@@ -27,7 +27,9 @@ app.post("/signin", (req, res) => {
 
 app.get("/user", (req, res) => {
     const token = req.cookies.token;
+    console.log(token)
     const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
+    console.log(decoded)
     // Get email of the user from the database
     res.send({
         userId: decoded.id
@@ -36,7 +38,7 @@ app.get("/user", (req, res) => {
 
 
 app.post("/logout", (req, res) => {
-    res.cookie("token", "ads");
+    res.cookie("token" , "")
     res.json({
         message: "Logged out!"
     })
@@ -44,4 +46,6 @@ app.post("/logout", (req, res) => {
 
 
 
-app.listen(3000);
+app.listen(3001 , ()=>{
+    console.log("running")
+});
