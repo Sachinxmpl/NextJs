@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+REST API
+NextAuth.js exposes a REST API that is used by the NextAuth.js client.
 
-## Getting Started
+GET /api/auth/signin
+Displays the built-in/unbranded sign-in page.
 
-First, run the development server:
+POST /api/auth/signin/:provider
+Starts a provider-specific sign-in flow.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The POST submission requires CSRF token from /api/auth/csrf.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+In case of an OAuth provider, calling this endpoint will initiate the Authorization Request to your Identity Provider. Learn more about this in the OAuth specification.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+In case of using the Email provider, calling this endpoint will send a sign-in URL to the user's e-mail address.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This endpoint is also used by the signIn method internally.
 
-## Learn More
+GET/POST /api/auth/callback/:provider
+Handles returning requests from OAuth services during sign-in.
 
-To learn more about Next.js, take a look at the following resources:
+For OAuth 2.0 providers that support the checks: ["state"] option, the state parameter is checked against the one that was generated when the sign in flow was started - this uses a hash of the CSRF token which MUST match for both the POST and GET calls during sign-in.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Learn more about this in the OAuth specification.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+GET /api/auth/signout
+Displays the built-in/unbranded sign out page.
 
-## Deploy on Vercel
+POST /api/auth/signout
+Handles signing the user out - this is a POST submission to prevent malicious links from triggering signing a user out without their consent. The user session will be invalidated/removed from the cookie/database, depending on the flow you chose to store sessions.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The POST submission requires CSRF token from /api/auth/csrf.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This endpoint is also used by the signOut method internally.
+
+GET /api/auth/session
+Returns client-safe session object - or an empty object if there is no session.
+
+The contents of the session object that is returned are configurable with the session callback.
+
+GET /api/auth/csrf
+Returns object containing CSRF token. In NextAuth.js, CSRF protection is present on all authentication routes. It uses the "double submit cookie method", which uses a signed HttpOnly, host-only cookie.
+
+The CSRF token returned by this endpoint must be passed as form variable named csrfToken in all POST submissions to any API endpoint.
+
+GET /api/auth/providers
+Returns a list of configured OAuth services and details (e.g. sign in and callback URLs) for each service.
+
+It is useful to dynamically generate custom sign up pages and to check what callback URLs are configured for each OAuth provider that is configured.
