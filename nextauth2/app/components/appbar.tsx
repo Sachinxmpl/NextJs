@@ -11,12 +11,15 @@ const styles = {
 
 export default function Appbar(){
     const session = useSession()
-    return <div>
-        <button onClick={()=>signIn()} style={styles}>Sign In</button>
-        <button onClick={()=>signOut()} style={styles}>Signout</button>
-
-        <div>
-                {JSON.stringify(session)}
+    if(session){
+        return <div>
+            <button onClick={()=> signOut()}>Logout</button>
+            {
+                JSON.stringify(session)
+            }
         </div>
+    }
+    return <div> 
+        <button onClick={()=> signIn()}>SignIn</button>
     </div>
 }
